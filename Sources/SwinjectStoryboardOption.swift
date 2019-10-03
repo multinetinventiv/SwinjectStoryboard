@@ -10,6 +10,10 @@ import Swinject
 
 #if os(iOS) || os(OSX) || os(tvOS)
 internal struct SwinjectStoryboardOption: ServiceKeyOption {
+    func hash(into: inout Hasher) {
+        controllerType.hash(into: &into)
+    }
+
     internal let controllerType: String
     
     internal init(controllerType: Container.Controller.Type) {
@@ -22,10 +26,6 @@ internal struct SwinjectStoryboardOption: ServiceKeyOption {
         }
         
         return self.controllerType == another.controllerType
-    }
-    
-    internal var hashValue: Int {
-        return controllerType.hashValue
     }
     
     internal var description: String {
